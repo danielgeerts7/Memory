@@ -1,3 +1,6 @@
 export class Card {
-  constructor(public id = 0, public chr = '...') {}
+  public id:Number = 0;
+  public className:String = "";
+  public innerHTML:String = "";
+ 	public chr:String = "";
 }

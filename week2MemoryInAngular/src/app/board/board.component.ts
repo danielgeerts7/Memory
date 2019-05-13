@@ -1,31 +1,23 @@
 import { Component } from '@angular/core';
 
-import { CardComponent } from './card.component'
+import { Card } from './card'
 
 @Component({
   selector: 'board',
   template: `
-
       {{ initGame(6) }}
 
-      {{ field.innerHTML }}
-
-      <table>
-        <tr>
-          <th *ngFor="let col of columns">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let char of characters | async">
-          <td *ngFor="let col of columns" class="{{ col }}">
-            {{char[col]}}
+      <table id ="speelveld">
+        <tr *ngFor="let a of data">
+          <td *ngFor="let b of a">
+            <div id="card" class="{{ b.className }}" (click)="flipCard(b)">{{ b.innerHTML }}</div>
           </td>
         </tr>
       </table>
-  `
+  `,
 })
 export class BoardComponent {
-    field:HTMLTableElement;
+    data:Card[][]
     private size:number;
 
     initGame(size:number) {
@@ -44,26 +36,35 @@ export class BoardComponent {
     	// moet een karakter toegewezen worden. Hiervoor kan de nextletter functie
     	// gebruikt worden. Ook moet de eventlistener cardClicked aan de cell gekoppeld worden
     	// en de opmaak juist gezet worden.
-      let table = document.createElement('table'); // Clear board
+      this.data = new Array()
       //next = new nextLetter(size);
+      let count = 0;
 
       for (var i = 0; i < this.size; i++) {
         let tr = document.createElement('tr');
+        this.data[i] = new Array();
         for (var j = 0; j < this.size; j++) {
           let td = document.createElement('td');
           //td.innerHTML = document.getElementById("character").value;
-          td.className = 'inactive';
-          //td.chr = next();
-          //td.addEventListener('click', cardClicked, true);
-          tr.appendChild(td)
+          count++;
+          let temp:Card = {
+            id: count,
+            className: 'inactive',
+            innerHTML: '*',
+           	chr: 'A',
+          };
+
+          this.data[i][j] = temp;
         }
-        table.appendChild(tr);
       }
-      this.field = table;
     }
 
     showScores(){
     	// Vul het topscore lijstje op het scherm.
+
+    }
+
+    flipCard(id) {
 
     }
 
