@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
 
-import { Card } from './card'
-
 @Component({
-  selector: 'board',
-  template: `
-      {{ initGame(6) }}
-
-      <table id ="speelveld">
-        <tr *ngFor="let a of data">
-          <td *ngFor="let b of a">
-            <div id="card" class="{{ b.className }}" (click)="flipCard(b)">{{ b.innerHTML }}</div>
-          </td>
-        </tr>
-      </table>
-  `,
+  selector: 'app-board',
+  templateUrl: './board.component.html',
 })
 export class BoardComponent {
-    data:Card[][]
-    private size:number;
+    rows:String[] = new Array();
+    size:Number;
+
+    constructor() {
+      this.initGame(4);
+    }
 
     initGame(size:number) {
+      console.log("Init game with " + size);
       this.size = size;
-    	this.initVars();
+
+      this.rows = new Array(size);
+      for (let i = 0; i < size; i++){
+          this.rows[i] = 'empty';
+          //this.rows[i].id = i;
+      }
+
+      this.initVars();
     	this.vulSpeelveld();
     	this.showScores();
     }
@@ -36,25 +36,13 @@ export class BoardComponent {
     	// moet een karakter toegewezen worden. Hiervoor kan de nextletter functie
     	// gebruikt worden. Ook moet de eventlistener cardClicked aan de cell gekoppeld worden
     	// en de opmaak juist gezet worden.
-      this.data = new Array()
+      let data = new Array()
       //next = new nextLetter(size);
-      let count = 0;
 
       for (var i = 0; i < this.size; i++) {
-        let tr = document.createElement('tr');
-        this.data[i] = new Array();
+        data[i] = new Array();
         for (var j = 0; j < this.size; j++) {
-          let td = document.createElement('td');
           //td.innerHTML = document.getElementById("character").value;
-          count++;
-          let temp:Card = {
-            id: count,
-            className: 'inactive',
-            innerHTML: '*',
-           	chr: 'A',
-          };
-
-          this.data[i][j] = temp;
         }
       }
     }

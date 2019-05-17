@@ -2,36 +2,43 @@
 body { width:90vw; height:90vh; padding:0; margin:0; font-family:Skia,Verdana,sans-serif; text-align:center; }
 
 header.span { display:table-cell; }
-
-table#speelveld { table-layout:fixed;   margin:0 auto; }
-table#speelveld td { cursor:pointer; text-align:center; color:white; font-size:large; font-weight:bold; }
-
+// Sidebar table
 table#meta { position:fixed; right:4vw; top:10vw;  width: 25vw; height:70vh; }
 table#meta td { vertical-align:top; text-align:left; padding:1%; }
 
+//Custom Angular memory play Board
+app-board { table-layout:fixed; margin:0 auto; }
+app-row { display: block; }
+app-card { cursor:pointer; text-align:center; color:white; font-size:large; font-weight:bold; }
+app-card p {
+  display: inline-block;
+  padding: 30px 40px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+// Mobile and tablet
 @media only screen and (orientation:landscape) {
-  table#speelveld { width:80vh; height:80vh; border-spacing:1vh;}
+  app-board { width:80vh; height:80vh; border-spacing:1vh;}
 }
 
 @media only screen and (orientation:portrait) {
-  table#speelveld { width:70vw; height:70vw; border-spacing:1vw;}
+  app-board { width:70vw; height:70vw; border-spacing:1vw;}
 }
-td #card {
-  display: inline-block;
-  padding: 40px;
-  text-align: center;
-}
-td #card.inactive { background-color:red; }
-td #card.active { background-color:green; }
-td #card.found{ background-color:purple; cursor:default; }
+
+// Card IDs
+#inactive { background-color:red; }
+#active { background-color:green; }
+#found{ background-color:purple; cursor:default; }
 
 button {width: 100px}
 
 #myTime {
-position: relative;
-width: 200px;
-height: 30px;
-background-color: #ddd;
+  position: relative;
+  width: 200px;
+  height: 30px;
+  background-color: #ddd;
 }
 
 #timeLeft {
