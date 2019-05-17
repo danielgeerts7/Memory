@@ -9,7 +9,7 @@ export class BoardComponent {
     size:Number;
 
     constructor() {
-      this.initGame(4);
+      this.initGame(6);
     }
 
     initGame(size:number) {
