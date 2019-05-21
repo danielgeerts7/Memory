@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GameService } from '../../game.service'
 
 @Component({
   selector: 'app-row',
@@ -6,18 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./row.component.scss']
 })
 export class RowComponent implements OnInit {
-  cells:String[] = new Array<String>();
-  size:number = 6;
+  row_id:number = 0;
+  cells:string[];
+  _size:number;
 
-  constructor() {
-    this.cells = new Array<String>(this.size);
-    for (let i = 0; i < this.size; i++){
-        //var card = new Card('inactive', '*', 'A'); // Classname, innerHTML, memory value
-        this.cells[i] = 'empty'
-    }
+  constructor(private gameService:GameService) {
+    this._size = this.gameService.getSize();
   }
 
   ngOnInit() {
+
   }
 
+  @Input('size')
+  set size(value: number) {
+    this._size = value;
+    this.cells = new Array(this.size).fill(value);
+  }
+  get size(): number {
+    return this._size;
+  }
 }

@@ -17,6 +17,10 @@ app-card p {
   border-radius: 10px;
   margin: 5px;
 }
+// Card IDs
+.inactive { background-color:red; }
+.active { background-color:green; }
+.found{ background-color:purple; cursor:default; }
 
 // Mobile and tablet
 @media only screen and (orientation:landscape) {
@@ -26,11 +30,6 @@ app-card p {
 @media only screen and (orientation:portrait) {
   app-board { width:70vw; height:70vw; border-spacing:1vw;}
 }
-
-// Card IDs
-#inactive { background-color:red; }
-#active { background-color:green; }
-#found{ background-color:purple; cursor:default; }
 
 button {width: 100px}
 
