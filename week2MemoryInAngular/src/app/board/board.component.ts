@@ -11,13 +11,12 @@ export class BoardComponent {
     size:number;
 
     constructor(private gameService: GameService) {
-      //gameService.initGame(this.size);
-      //this.rows = gameService.cards;
-      this.size = this.gameService.getSize();
-      this.rows = new Array(this.size);
-      console.log(this.size);
+
     }
 
     ngOnInit() {
+      this.size = this.gameService.getSize();
+      this.rows = new Array(this.size);
+      console.log(this.size);
     }
 }

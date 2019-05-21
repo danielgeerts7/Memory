@@ -68,23 +68,19 @@ export class GameService {
     console.log('Flip ping from GameService');
   }
 
-  // knuth array shuffle
-  // from https://bost.ocks.org/mike/shuffle/
-  shuffle(array: any[]) {
-  	var currentIndex:number = 6;
-    var temporaryValue:string;
-    var randomIndex:number;
-  	// While there remain elements to shuffle...
-  	while (0 !== currentIndex) {
-  		// Pick a remaining element...
-  		randomIndex = Math.floor(Math.random() * currentIndex);
-  		currentIndex -= 1;
-  		// And swap it with the current element.
-  		temporaryValue = array[currentIndex];
-  		array[currentIndex] = array[randomIndex];
-  		array[randomIndex] = temporaryValue;
-  	}
-  	return array;
+  shuffle(array:any[]) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
 
   fetchAchterkant() {
