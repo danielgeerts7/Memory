@@ -64,8 +64,8 @@ export class GameService {
 
   }
 
-  flipCard(id) {
-
+  flipCard() {
+    console.log('Flip ping from GameService');
   }
 
   // knuth array shuffle

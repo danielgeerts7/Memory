@@ -39,12 +39,14 @@ export class CardComponent implements OnInit {
   }
 
   onSelect(data:string) {
-    flip();
+    this.flip();
     this.achterkant = 'verander dit!'
     console.log(data)
   }
 
   flip() {
+    this.gameService.flipCard(); // * of # of ...
+    
     if (this.className === 'inactive') {
       this.className = 'active'
     } else if (this.className === 'active') {
