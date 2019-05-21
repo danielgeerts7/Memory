@@ -8,18 +8,16 @@ import { GameService } from '../game.service'
 })
 export class BoardComponent {
     rows:any[];
+    size:number;
 
     constructor(private gameService: GameService) {
       //gameService.initGame(this.size);
       //this.rows = gameService.cards;
-      this.rows = new Array(this.gameService.getSize());
+      this.size = this.gameService.getSize();
+      this.rows = new Array(this.size);
+      console.log(this.size);
     }
 
     ngOnInit() {
-      this.getSize();
-    }
-
-    getSize(): void {
-    //  this.gameService.getSize().subscribe(value => this.size = value);
     }
 }
