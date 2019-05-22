@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { ConfigComponent } from './sidebar/config.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,16 @@ export class GameService {
   cards: any[];
   size: number;
   getLetter: any;
+  chr = new BehaviorSubject("*");
+  character = this.chr.asObservable();
 
-  constructor() {}
+  constructor() {
+
+  }
+
+  updateChr(chrr: string){
+    this.chr.next(chrr);
+  }
 
   getCards() {//: Obverable<Card[]> {
     return this.cards;
@@ -19,6 +30,10 @@ export class GameService {
 
   getSize() {//: Obverable<number> {
     return this.size;
+  }
+
+  setChr(char: string){
+    this.chr = char;
   }
 
   nextLetter(size):any {
@@ -88,6 +103,6 @@ export class GameService {
   }
 
   fetchAchterkant() {
-    return '0'
+    return this.chr;
   }
 }
