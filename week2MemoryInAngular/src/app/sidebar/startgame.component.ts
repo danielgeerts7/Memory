@@ -16,6 +16,6 @@ export class StartgameComponent {
   }
 
   newGame() {
-    this.gameService.restartGame(4);
+    //this.gameService.restartGame(4);
   }
 }

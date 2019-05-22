@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 
 import { filter } from 'rxjs/operators';
@@ -23,7 +24,7 @@ export class GameService {
 
   nextLetter(size):any {
     console.log('next'+size);
-  	let letterArray = "AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ".substring(0,size*size).split('');
+    let letterArray = "AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ".substring(0,size*size).split('');
   	var idx=0;
   	letterArray = this.shuffle(letterArray);
   	return () => {
@@ -84,6 +85,6 @@ export class GameService {
   }
 
   fetchAchterkant() {
-    return '0'
+    return '0';
   }
 }
