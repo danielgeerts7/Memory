@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { filter } from 'rxjs/operators';
 
+import { Card } from './board/row/card/card'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +13,9 @@ export class GameService {
   cards: any[];
   size: number;
   getLetter: any;
+
+  firstcard:Card;
+  secondcard:Card;
 
   constructor() {}
 
@@ -38,7 +43,6 @@ export class GameService {
     console.log("Init game with " + size);
 
     this.initVars();
-    this.vulSpeelveld();
     this.showScores();
   }
 
@@ -46,27 +50,8 @@ export class GameService {
     this.getLetter = this.nextLetter(this.size);
   }
 
-  vulSpeelveld(){
-    // Bouw de size x size table speelveld op. Elk <td> element van de tabel
-    // moet een karakter toegewezen worden. Hiervoor kan de nextletter functie
-    // gebruikt worden. Ook moet de eventlistener cardClicked aan de cell gekoppeld worden
-    // en de opmaak juist gezet worden.
-    //this.cards = new Array(this.size*this.size)
-    //next = new nextLetter(size);
-
-    //for (var i = 0; i < this.size * this.size; i++) {
-      //this.cards[i] = new Card('inactive', '*', '');
-        //td.innerHTML = document.getElementById("character").value;
-  //  }
-  }
-
   showScores(){
     // Vul het topscore lijstje op het scherm.
-
-  }
-
-  flipCard() {
-    console.log('Flip ping from GameService');
   }
 
   shuffle(array:any[]) {
@@ -84,7 +69,67 @@ export class GameService {
     return array;
   }
 
+  flipCard(card:Card) {
+    this.checkDerdeKaart();
+    let draaiKaartOm = this.turnCard(card);
+    if (draaiKaartOm) {
+      this.checkKaarten();
+    }
+  }
+
+  checkDerdeKaart(){
+    if (this.firstcard && this.secondcard) {
+      this.deactivateCards();
+    }
+  }
+
+  deactivateCards() {
+  	if (this.firstcard) {
+  		this.firstcard.className = 'inactive';
+    	this.firstcard.showThis = this.firstcard.achterkant;
+      this.firstcard = null;
+  	}
+  	if (this.secondcard) {
+  		this.secondcard.className = 'inactive';
+      this.secondcard.showThis = this.secondcard.achterkant;
+    	this.secondcard = null;
+  	}
+  }
+
+  turnCard(card:Card) {
+    let count = 0;
+    if (card.className === 'inactive') {
+      card.className = 'active';
+      card.showThis = card.karakter;
+    } else if (card.className === 'active') {
+      card.className = 'inactive';
+      card.showThis = '*';
+    }
+
+    if (!this.firstcard) {
+      this.firstcard = card;
+      count = 1;
+    } else if (this.firstcard !== card && !this.secondcard) {
+      this.secondcard = card;
+      count = 2;
+    }
+
+    return count;
+  }
+
+  checkKaarten() {
+    if (this.firstcard.className !== 'found' && this.secondcard.karakter !== 'found') {
+      console.log("Check : " + this.firstcard.karakter + " met " +  this.secondcard.karakter);
+      if (this.firstcard.karakter === this.secondcard.karakter) {
+        this.firstcard.className = 'found';
+        this.secondcard.className = 'found';
+        this.firstcard = null;
+        this.secondcard = null;
+      }
+    }
+  }
+
   fetchAchterkant() {
-    return '0';
+    return '*';
   }
 }

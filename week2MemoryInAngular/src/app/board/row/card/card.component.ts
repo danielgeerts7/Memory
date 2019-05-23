@@ -2,33 +2,34 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { GameService } from '../../../game.service'
 
+import { Card } from './card'
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  className:string = 'inactive';
-  _karakter:string = '*';
-  achterkant:string;
   _size:number;
-  tempchar:string;
+  card:Card = new Card();
 
   constructor(private gameService: GameService) {
-
+    this.card.className = 'inactive';
+    this.card.karakter = 'null';
+    this.card.achterkant = '*';
+    this.card.showThis = this.card.achterkant;
   }
 
   ngOnInit() {
-    // this.getNextLetter();
-    this.achterkant = this.gameService.fetchAchterkant(); // * of # of ...
+    this.card.achterkant = this.gameService.fetchAchterkant(); // * of # of ...
   }
 
   @Input()
   set karakter(karakter:string) {
-    this.tempchar = this.gameService.getLetter();
+    this.card.karakter = this.gameService.getLetter();
   }
   get karakter() {
-    return this._karakter;
+    return this.card.karakter;
   }
 
   @Input()
@@ -39,29 +40,7 @@ export class CardComponent implements OnInit {
     return this._size;
   }
 
-  onSelect(data:string) {
-    this.flip();
-    this.achterkant = 'verander dit!';
-    console.log(data);
-  }
-
-  flip() {
-    this.gameService.flipCard(); // * of # of ...
-
-    if (this.className === 'inactive') {
-      this.className = 'active';
-      console.log(this._karakter);
-
-      this._karakter = this.tempchar;
-
-    } else if (this.className === 'active') {
-      this.className = 'inactive';
-      console.log(this._karakter);
-
-      this.tempchar = this._karakter;
-      this._karakter = '*';
-
-
-    }
+  onSelect() {
+    this.gameService.flipCard(this.card);
   }
 }
