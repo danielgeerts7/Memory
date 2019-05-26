@@ -13,7 +13,7 @@ export class GameService {
   cards: any[];
   size: number;
   getLetter: any;
-
+  char: string;
   firstcard:Card;
   secondcard:Card;
 
@@ -103,7 +103,7 @@ export class GameService {
       card.showThis = card.karakter;
     } else if (card.className === 'active') {
       card.className = 'inactive';
-      card.showThis = '*';
+      card.showThis = this.char;
     }
 
     if (!this.firstcard) {
@@ -130,6 +130,7 @@ export class GameService {
   }
 
   fetchAchterkant() {
-    return '*';
+    console.log('this.char: ' + this.char);
+    return this.char;
   }
 }

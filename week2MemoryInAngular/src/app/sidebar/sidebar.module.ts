@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms';
 
 import { SidebarComponent } from './sidebar.component'
 
@@ -21,6 +22,7 @@ import { TopfiveComponent } from './topfive.component'
   ],
   imports: [
       CommonModule,
+      FormsModule
    ]
 })
 export class SidebarModule { }
