@@ -80,6 +80,7 @@ export class GameService {
     if (draaiKaartOm === 2) {
       this.checkKaarten();
       this.toggle();
+      this.gameDone();
 
     }
   }
@@ -153,11 +154,18 @@ export class GameService {
   resetToggle() {
     this.isOpen = true;
   }
-// TODO: deze timeout toevoegen aan iets zodat de kaarten automatisch weer omdraaien.
   timeoutCheck() {
     this.timeout = setTimeout(() => {
       this.deactivateCards();
       this.resetToggle();
     }, 2000);
+  }
+
+  //todo stop mogelijk maken en gemiddelde tijd uitrekeken en punten berekenen
+  gameDone() {
+    if (this.points * 2 == this.size * this.size) {
+      console.log('game done');
+      return 'done';
+    }
   }
 }
