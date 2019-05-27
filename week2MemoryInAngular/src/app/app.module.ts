@@ -2,20 +2,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
 
-import { BoardModule } from './board/board.module';
-import { MainbarModule } from './mainbar/mainbar.module';
-import { SidebarModule } from './sidebar/sidebar.module';
+import { RouteRoutingModule } from './route/route-routing.module'
+
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LoginModule } from './login/login.module';
+import { MemoryModule } from './memory/memory.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
-  imports: [
+    imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    RouteRoutingModule,
     BrowserModule,
-    BoardModule,
-    MainbarModule,
-    SidebarModule,
+    MemoryModule,
+    LoginModule
   ],
   bootstrap: [ AppComponent ]
 })

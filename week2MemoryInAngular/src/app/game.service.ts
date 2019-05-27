@@ -72,7 +72,7 @@ export class GameService {
   flipCard(card:Card) {
     this.checkDerdeKaart();
     let draaiKaartOm = this.turnCard(card);
-    if (draaiKaartOm) {
+    if (draaiKaartOm == 2) {
       this.checkKaarten();
     }
   }
@@ -118,7 +118,7 @@ export class GameService {
   }
 
   checkKaarten() {
-    if (this.firstcard.className !== 'found' && this.secondcard.karakter !== 'found') {
+    if (this.firstcard.className !== 'found' && this.secondcard.className !== 'found') {
       console.log("Check : " + this.firstcard.karakter + " met " +  this.secondcard.karakter);
       if (this.firstcard.karakter === this.secondcard.karakter) {
         this.firstcard.className = 'found';
