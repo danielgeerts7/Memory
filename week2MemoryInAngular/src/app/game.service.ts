@@ -16,6 +16,9 @@ export class GameService {
 
   firstcard:Card;
   secondcard:Card;
+  points: number = 0;
+
+  isOpen = true;
 
   constructor() {}
 
@@ -72,14 +75,16 @@ export class GameService {
   flipCard(card:Card) {
     this.checkDerdeKaart();
     let draaiKaartOm = this.turnCard(card);
-    if (draaiKaartOm) {
+    if (draaiKaartOm === 2) {
       this.checkKaarten();
+      this.toggle();
     }
   }
 
   checkDerdeKaart(){
     if (this.firstcard && this.secondcard) {
       this.deactivateCards();
+      this.resetToggle()
     }
   }
 
@@ -118,18 +123,29 @@ export class GameService {
   }
 
   checkKaarten() {
-    if (this.firstcard.className !== 'found' && this.secondcard.karakter !== 'found') {
+    if (this.firstcard.className !== 'found' && this.secondcard.className !== 'found') {
       console.log("Check : " + this.firstcard.karakter + " met " +  this.secondcard.karakter);
       if (this.firstcard.karakter === this.secondcard.karakter) {
+        this.resetToggle();
         this.firstcard.className = 'found';
         this.secondcard.className = 'found';
         this.firstcard = null;
         this.secondcard = null;
+        this.points = this.points + 1;
+
       }
     }
   }
 
   fetchAchterkant() {
     return '*';
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+
+  resetToggle() {
+    this.isOpen = true;
   }
 }

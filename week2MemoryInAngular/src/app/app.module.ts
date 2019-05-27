@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BoardModule } from './board/board.module';
 import { MainbarModule } from './mainbar/mainbar.module';
 import { SidebarModule } from './sidebar/sidebar.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
     BoardModule,
     MainbarModule,
     SidebarModule,
+    BrowserAnimationsModule,
   ],
   bootstrap: [ AppComponent ]
 })
