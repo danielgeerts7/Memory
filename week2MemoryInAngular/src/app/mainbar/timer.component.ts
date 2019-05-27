@@ -20,7 +20,7 @@ import {GameService} from '../game.service';
         animate('2s')
       ]),
       transition('closed => open', [
-        animate('0.5s')
+        animate('0.2s')
       ]),
     ]),
   ],

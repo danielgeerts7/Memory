@@ -84,7 +84,7 @@ export class GameService {
   checkDerdeKaart(){
     if (this.firstcard && this.secondcard) {
       this.deactivateCards();
-      this.resetToggle()
+      this.resetToggle();
     }
   }
 
@@ -126,13 +126,12 @@ export class GameService {
     if (this.firstcard.className !== 'found' && this.secondcard.className !== 'found') {
       console.log("Check : " + this.firstcard.karakter + " met " +  this.secondcard.karakter);
       if (this.firstcard.karakter === this.secondcard.karakter) {
-        this.resetToggle();
         this.firstcard.className = 'found';
         this.secondcard.className = 'found';
         this.firstcard = null;
         this.secondcard = null;
         this.points = this.points + 1;
-
+        this.toggle();
       }
     }
   }
