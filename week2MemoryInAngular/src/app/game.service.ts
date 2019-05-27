@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 
 import { filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Card } from './board/row/card/card'
 
@@ -13,9 +14,16 @@ export class GameService {
   cards: any[];
   size: number;
   getLetter: any;
-  char: string;
+  //char: string = 'N';
   firstcard:Card;
   secondcard:Card;
+
+  public symbol = new BehaviorSubject<string>('*');
+  cast = this.symbol.asObservable();
+
+  nextSymbol(s){
+    this.symbol.next(s);
+  }
 
   constructor() {}
 
@@ -97,6 +105,7 @@ export class GameService {
   }
 
   turnCard(card:Card) {
+    console.log('Service: '+ this.symbol);
     let count = 0;
     if (card.className === 'inactive') {
       card.className = 'active';
@@ -118,7 +127,7 @@ export class GameService {
   }
 
   checkKaarten() {
-    if (this.firstcard.className !== 'found' && this.secondcard.karakter !== 'found') {
+    if (this.firstcard.className !== 'found' && this.secondcard.className !== 'found') {
       console.log("Check : " + this.firstcard.karakter + " met " +  this.secondcard.karakter);
       if (this.firstcard.karakter === this.secondcard.karakter) {
         this.firstcard.className = 'found';
@@ -130,7 +139,8 @@ export class GameService {
   }
 
   fetchAchterkant() {
-    console.log('this.char: ' + this.char);
-    return this.char;
+    console.log("fetch");
+    //console.log('this.char: ' + this.char);
+    //return this.char;
   }
 }

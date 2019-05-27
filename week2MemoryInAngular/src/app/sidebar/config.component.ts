@@ -36,10 +36,13 @@ export class ConfigComponent {
 
     }
 
+    ngOnInit(){
+      this.gameService.cast.subscribe(symbol => this.selectedOption = symbol);
+    }
+
     changeChar(event: any){
-      console.log(event.target.value[0]);
-      console.log(this.chars[1]);
-      console.log(this.chars.indexOf(event.target.value[0]));
-      this.gameService.char = this.chars[event.target.value[0]];
+      //console.log(this.chars[1]);
+      console.log(this.chars[event.target.value[0]]);
+      this.gameService.nextSymbol(this.chars[event.target.value[0]]);
     }
 }
