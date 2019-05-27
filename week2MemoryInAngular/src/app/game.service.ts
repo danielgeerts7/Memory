@@ -78,6 +78,7 @@ export class GameService {
     if (draaiKaartOm === 2) {
       this.checkKaarten();
       this.toggle();
+
     }
   }
 
@@ -118,7 +119,6 @@ export class GameService {
       this.secondcard = card;
       count = 2;
     }
-
     return count;
   }
 
@@ -131,7 +131,7 @@ export class GameService {
         this.firstcard = null;
         this.secondcard = null;
         this.points = this.points + 1;
-        this.toggle();
+        this.resetToggle();
       }
     }
   }
@@ -146,5 +146,12 @@ export class GameService {
 
   resetToggle() {
     this.isOpen = true;
+  }
+// TODO: deze timeout toevoegen aan iets zodat de kaarten automatisch weer omdraaien.
+  TimeoutCheck() {
+    setTimeout(() => {
+      this.deactivateCards();
+      this.resetToggle();
+    }, 2000);
   }
 }
