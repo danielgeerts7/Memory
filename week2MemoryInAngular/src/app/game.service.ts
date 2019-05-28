@@ -80,7 +80,7 @@ export class GameService {
     if (draaiKaartOm === 2) {
       this.checkKaarten();
       this.toggle();
-      this.gameDone();
+      this.checkGameDone();
 
     }
   }
@@ -162,10 +162,10 @@ export class GameService {
   }
 
   //todo stop mogelijk maken en gemiddelde tijd uitrekeken en punten berekenen
-  gameDone() {
+  checkGameDone() {
     if (this.points * 2 == this.size * this.size) {
       console.log('game done');
-      return 'done';
+      return true;
     }
   }
 }

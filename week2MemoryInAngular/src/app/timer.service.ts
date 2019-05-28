@@ -10,8 +10,10 @@ export class TimerService {
   subscription: Subscription;
   currTime: number = 0;
   timerStarted: number = 0;
-  avarageCalcArray = [];
 
+  avgTime: number = 0;
+  timesPlayed:number = 0;
+  allTime: number = 0;
 
 constructor() {}
 
@@ -34,7 +36,11 @@ timerAdd() {
 
   }
 
-  addToAvgArr() {
-    this.avarageCalcArray.push(this.currTime);
+  addToAvg(done: boolean) {
+    if (done) {
+       this.allTime = this.currTime + this.allTime;
+       this.timesPlayed = this.timesPlayed + 1;
+       this.avgTime = this.allTime / this.timesPlayed;
+    }
   }
 }

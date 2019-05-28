@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import {GameService} from '../game.service';
+import {TimerService} from '../timer.service';
 
 @Component({
   selector: 'config',
   template: `
-  <b>Gemiddelde speeltijd:</b> <span id="gemiddeld">0s (+0s)</span><br/><br/>
+  <b>Gemiddelde speeltijd:</b> <span id="gemiddeld">{{this.timerService.addToAvg(this.gameService.checkGameDone())}} (+0s)</span><br/><br/>
   <b>Karakter op kaarten:</b>
     <select name="character" id="character">
       <option value="*">*</option>
@@ -21,4 +23,8 @@ import { Component } from '@angular/core';
   </select>
   `
 })
-export class ConfigComponent { }
+export class ConfigComponent {
+  constructor(private gameService: GameService, private timerService: TimerService ) {
+
+  }
+}
