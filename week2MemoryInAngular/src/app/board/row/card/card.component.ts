@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { GameService } from '../../../game.service'
+import { GameService } from '../../../game.service';
+import { TimerService } from '../../../timer.service';
 
-import { Card } from './card'
+
+import { Card } from './card';
 
 @Component({
   selector: 'app-card',
@@ -13,11 +15,13 @@ export class CardComponent implements OnInit {
   _size:number;
   card:Card = new Card();
 
-  constructor(private gameService: GameService) {
+
+  constructor(private gameService: GameService, private timerService: TimerService) {
     this.card.className = 'inactive';
     this.card.karakter = 'null';
     this.card.achterkant = '*';
     this.card.showThis = this.card.achterkant;
+
   }
 
   ngOnInit() {
@@ -41,6 +45,8 @@ export class CardComponent implements OnInit {
   }
 
   onSelect() {
+    this.timerService.timerServiceStartOnce();
     this.gameService.flipCard(this.card);
   }
+
 }

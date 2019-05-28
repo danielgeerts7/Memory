@@ -1,0 +1,3 @@
+Resterende toontijd: <br>
+<button (click)="gameService.toggle()" id="myTime"><div [@openClose]="gameService.isOpen ? 'open' : 'closed'" id="timeLeft"></div></button><br/>
+<p>Delete when done, for testing: The box is now {{ gameService.isOpen ? 'Open' : 'Closed' }}!</p>

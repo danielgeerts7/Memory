@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-
 import { RouteRoutingModule } from './route/route-routing.module'
 
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { MemoryModule } from './memory/memory.module';
 
@@ -21,7 +21,8 @@ import { MemoryModule } from './memory/memory.module';
     RouteRoutingModule,
     BrowserModule,
     MemoryModule,
-    LoginModule
+    LoginModule,
+    BrowserAnimationsModule,
   ],
   bootstrap: [ AppComponent ]
 })

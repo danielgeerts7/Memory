@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { filter } from 'rxjs/operators';
 
 import { Card } from './board/row/card/card'
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class GameService {
 
   firstcard:Card;
   secondcard:Card;
+  points: number = 0;
+
+  isOpen = true;
+  timeout: any;
 
   constructor() {}
 
@@ -50,7 +55,7 @@ export class GameService {
     this.getLetter = this.nextLetter(this.size);
   }
 
-  showScores(){
+  showScores() {
     // Vul het topscore lijstje op het scherm.
   }
 
@@ -69,17 +74,25 @@ export class GameService {
     return array;
   }
 
-  flipCard(card:Card) {
+  flipCard(card: Card) {
     this.checkDerdeKaart();
     let draaiKaartOm = this.turnCard(card);
-    if (draaiKaartOm == 2) {
+    if (draaiKaartOm === 2) {
       this.checkKaarten();
+      this.toggle();
+      this.checkGameDone();
+
     }
   }
 
-  checkDerdeKaart(){
+  checkDerdeKaart() {
     if (this.firstcard && this.secondcard) {
+      clearInterval(this.timeout);
       this.deactivateCards();
+      this.resetToggle();
+    } else if (this.firstcard && !this.secondcard ) {
+      console.log('this one')
+      this.timeoutCheck();
     }
   }
 
@@ -113,7 +126,6 @@ export class GameService {
       this.secondcard = card;
       count = 2;
     }
-
     return count;
   }
 
@@ -125,11 +137,35 @@ export class GameService {
         this.secondcard.className = 'found';
         this.firstcard = null;
         this.secondcard = null;
+        this.points = this.points + 1;
+        this.resetToggle();
       }
     }
   }
 
   fetchAchterkant() {
     return '*';
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+
+  resetToggle() {
+    this.isOpen = true;
+  }
+  timeoutCheck() {
+    this.timeout = setTimeout(() => {
+      this.deactivateCards();
+      this.resetToggle();
+    }, 2000);
+  }
+
+  //todo stop mogelijk maken en gemiddelde tijd uitrekeken en punten berekenen
+  checkGameDone() {
+    if (this.points * 2 == this.size * this.size) {
+      console.log('game done');
+      return true;
+    }
   }
 }

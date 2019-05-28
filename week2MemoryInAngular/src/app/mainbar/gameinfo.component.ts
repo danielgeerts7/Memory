@@ -1,30 +1,21 @@
 import { Component } from '@angular/core';
-import {interval, Subscription} from "rxjs";
+import {interval, Subscription} from 'rxjs';
+import { TimerService } from '../timer.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'gameinfo',
   template: `
     <h2>Javascript memory</h2>
-    <div>Verlopen tijd: <span id="tijd">{{returnTime()}}</span> seconden.<br/>
-    Gevonden kaart-paren: <span id="gevonden">0</span><br>
+    <div>Verlopen tijd: <span id="tijd">{{this.timerService.currTime}}</span> seconden.<br/>
+    Gevonden kaart-paren: <span id="gevonden">{{this.gameService.points}}</span><br>
     </div>
   `
 })
 export class GameinfoComponent {
-  subscription: Subscription;
-  currTime: number = 0;
 
-  ngOnInit(){
-    const source = interval(1000);
-    this.subscription = source.subscribe(val => this.timerAdd());
-  }
+  constructor(private timerService: TimerService , private gameService: GameService ) {}
 
-  timerAdd(){
-    this.currTime = this.currTime + 1;
-  }
 
-  returnTime(){
-    return this.currTime
-  }
 
 }
