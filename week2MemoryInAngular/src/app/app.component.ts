@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor(private gameService:GameService) {
+    this.gameService.initGame();
+  }
 
 }

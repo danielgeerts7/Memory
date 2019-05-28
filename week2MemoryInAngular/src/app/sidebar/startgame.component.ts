@@ -5,17 +5,17 @@ import { GameService } from '../game.service'
 @Component({
   selector: 'startgame',
   template: `
-    <button id="opnieuw" (click)="newGame()">Nieuw Spel</button>
+    <button id="opnieuw" (click)="newGame(size)">Nieuw Spel</button>
   `
 })
 export class StartgameComponent {
-
+  size: number;
 
   constructor(private gameService:GameService) {
-
+    this.size = this.gameService.size;
   }
 
-  newGame() {
-    //this.gameService.restartGame(4);
+  newGame(size: number) {
+    this.gameService.initGame(size);
   }
 }

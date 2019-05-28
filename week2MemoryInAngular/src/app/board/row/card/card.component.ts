@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GameService } from '../../../game.service';
 import { TimerService } from '../../../timer.service';
 
@@ -19,13 +20,18 @@ export class CardComponent implements OnInit {
   constructor(private gameService: GameService, private timerService: TimerService) {
     this.card.className = 'inactive';
     this.card.karakter = 'null';
-    this.card.achterkant = '*';
-    this.card.showThis = this.card.achterkant;
+    this.card.showThis = this.gameService.symbol.value;
+
+    this.gameService.symbol.subscribe(val => {
+        if(this.card.className == 'inactive'){
+          this.card.showThis = val;
+        }
+    });
 
   }
 
   ngOnInit() {
-    this.card.achterkant = this.gameService.fetchAchterkant(); // * of # of ...
+
   }
 
   @Input()
@@ -42,6 +48,14 @@ export class CardComponent implements OnInit {
   }
   get size() {
     return this._size;
+  }
+
+  get char(){
+    return this.char;
+  }
+
+  set char(char){
+    this.char = char;
   }
 
   onSelect() {
