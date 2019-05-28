@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'week2memory';
 
   constructor(private gameService:GameService) {
-    this.gameService.initGame(6);
+    this.gameService.initGame();
   }
 }

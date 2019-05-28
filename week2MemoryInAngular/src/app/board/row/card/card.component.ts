@@ -14,23 +14,21 @@ import { Card } from './card';
 export class CardComponent implements OnInit {
   _size:number;
   card:Card = new Card();
-  symbol:string;
 
   constructor(private gameService: GameService) {
     this.card.className = 'inactive';
     this.card.karakter = 'null';
-    //console.log('1. achterkant: '+this.card.achterkant + ' card: '+this.gameService.char + ' showThis: '+this.card.showThis);
-    this.card.achterkant = this.symbol;
-    //console.log('2. achterkant: '+this.card.achterkant + ' card: '+this.gameService.char + ' showThis: '+this.card.showThis);
-    this.card.showThis = this.card.achterkant;
-    //console.log('3. achterkant: '+this.card.achterkant + ' card: '+this.gameService.char + ' showThis: '+this.card.showThis);
+    this.card.showThis = this.gameService.symbol.value;
+
+    this.gameService.symbol.subscribe(val => {
+        if(this.card.className == 'inactive'){
+          this.card.showThis = val;
+        }
+    });
   }
 
   ngOnInit() {
-    //this.card.achterkant = this.gameService.char;
-    //this.card.achterkant.subscribe(_char => this.gameService.char = _char);
-    //this.gameService.cast.subscribe(symbol => this.selectedOption = symbol);
-    console.log('hey: '+ this.gameService.symbol); // * of # of ...
+
   }
 
   @Input()

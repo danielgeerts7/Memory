@@ -17,6 +17,5 @@ export class BoardComponent {
     ngOnInit() {
       this.size = this.gameService.getSize();
       this.rows = new Array(this.size);
-      console.log(this.size);
     }
 }

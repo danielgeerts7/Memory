@@ -12,18 +12,14 @@ import { Card } from './board/row/card/card'
 export class GameService {
 
   cards: any[];
-  size: number;
+  //size: number;
   getLetter: any;
-  //char: string = 'N';
+  char: string;
   firstcard:Card;
   secondcard:Card;
 
-  public symbol = new BehaviorSubject<string>('*');
-  cast = this.symbol.asObservable();
-
-  nextSymbol(s){
-    this.symbol.next(s);
-  }
+  symbol = new BehaviorSubject('*');
+  size = new BehaviorSubject(6);
 
   constructor() {}
 
@@ -32,7 +28,7 @@ export class GameService {
   }
 
   getSize() {//: Obverable<number> {
-    return this.size;
+    return this.size.value;
   }
 
   nextLetter(size):any {
@@ -46,16 +42,16 @@ export class GameService {
   	};
   }
 
-  initGame(size:number) {
-    this.size = size;
-    console.log("Init game with " + size);
+  initGame(size:number=this.size.value) {
+    //this.size = size;
+    console.log("Init game with " + this.size.value);
 
     this.initVars();
     this.showScores();
   }
 
   initVars() {
-    this.getLetter = this.nextLetter(this.size);
+    this.getLetter = this.nextLetter(this.size.value);
   }
 
   showScores(){
@@ -80,7 +76,7 @@ export class GameService {
   flipCard(card:Card) {
     this.checkDerdeKaart();
     let draaiKaartOm = this.turnCard(card);
-    if (draaiKaartOm) {
+    if (draaiKaartOm == 2) {
       this.checkKaarten();
     }
   }
@@ -94,25 +90,26 @@ export class GameService {
   deactivateCards() {
   	if (this.firstcard) {
   		this.firstcard.className = 'inactive';
-    	this.firstcard.showThis = this.firstcard.achterkant;
+    	this.firstcard.showThis = this.symbol.value;
       this.firstcard = null;
   	}
   	if (this.secondcard) {
   		this.secondcard.className = 'inactive';
-      this.secondcard.showThis = this.secondcard.achterkant;
+      this.secondcard.showThis = this.symbol.value;
     	this.secondcard = null;
   	}
   }
 
   turnCard(card:Card) {
-    console.log('Service: '+ this.symbol);
     let count = 0;
     if (card.className === 'inactive') {
       card.className = 'active';
       card.showThis = card.karakter;
     } else if (card.className === 'active') {
       card.className = 'inactive';
-      card.showThis = this.char;
+      //console.log(this.char);
+      card.showThis = this.symbol.value;
+      //console.log(this.char);
     }
 
     if (!this.firstcard) {
