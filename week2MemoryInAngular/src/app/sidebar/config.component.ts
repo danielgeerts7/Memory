@@ -53,4 +53,3 @@ export class ConfigComponent {
       console.log("hey hoe is het");
     }
   }
-}
