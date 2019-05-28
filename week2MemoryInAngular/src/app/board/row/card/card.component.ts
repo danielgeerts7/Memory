@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
   card:Card = new Card();
 
 
-  constructor(private gameService: GameService, private timerService: TimerService) {
+  constructor(private gameService: GameService, private timerService: TimerService ) {
     this.card.className = 'inactive';
     this.card.karakter = 'null';
     this.card.showThis = this.gameService.symbol.value;

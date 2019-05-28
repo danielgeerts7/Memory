@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {GameService} from '../game.service';
-import {TimerService} from '../timer.service';
 
-import { GameService } from './../game.service';
+import { GameService } from '../game.service';
+import { TimerService } from '../timer.service';
 
 @Component({
   selector: 'config',

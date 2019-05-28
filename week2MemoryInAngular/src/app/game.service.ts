@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Card } from './board/row/card/card'
-import {el} from '@angular/platform-browser/testing/src/browser_util';
+import { el } from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable({
   providedIn: 'root'
