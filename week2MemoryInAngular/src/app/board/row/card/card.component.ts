@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { GameService } from '../../../game.service';
+import { TimerService } from '../../../timer.service';
+
 
 import { Card } from './card';
 
@@ -15,7 +16,8 @@ export class CardComponent implements OnInit {
   _size:number;
   card:Card = new Card();
 
-  constructor(private gameService: GameService) {
+
+  constructor(private gameService: GameService, private timerService: TimerService) {
     this.card.className = 'inactive';
     this.card.karakter = 'null';
     this.card.showThis = this.gameService.symbol.value;
@@ -25,6 +27,7 @@ export class CardComponent implements OnInit {
           this.card.showThis = val;
         }
     });
+
   }
 
   ngOnInit() {
@@ -56,6 +59,8 @@ export class CardComponent implements OnInit {
   }
 
   onSelect() {
+    this.timerService.timerServiceStartOnce();
     this.gameService.flipCard(this.card);
   }
+
 }
