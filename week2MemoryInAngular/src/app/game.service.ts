@@ -13,7 +13,6 @@ import { el } from '@angular/platform-browser/testing/src/browser_util';
 export class GameService {
 
   cards: any[];
-  //size: number;
   getLetter: any;
   char: string;
   firstcard:Card;
@@ -24,7 +23,7 @@ export class GameService {
   timeout: any;
 
   symbol = new BehaviorSubject('*');
-  size = new BehaviorSubject(6);
+  size = new BehaviorSubject(4);
 
   constructor() {}
 
@@ -171,7 +170,7 @@ export class GameService {
 
   //todo stop mogelijk maken en gemiddelde tijd uitrekeken en punten berekenen
   checkGameDone() {
-    if (this.points * 2 == this.size * this.size) {
+    if (this.points * 2 == this.getSize() * this.getSize()) {
       console.log('game done');
       return true;
     }

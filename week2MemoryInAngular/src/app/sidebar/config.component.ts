@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { GameService } from '../game.service';
-import { TimerService } from '../timer.service';
+import { GameService } from './../game.service';
+import { TimerService } from './../timer.service';
 
 @Component({
   selector: 'config',
@@ -42,7 +42,7 @@ export class ConfigComponent {
       this.gameService.symbol.next(this.chars[event.target.value[0]]);
     }
 
-    changeSize(event: number){
+    changeSize(event: any){
       let grootte = event.target.value;
       //this.gameService.initGame(size);
       //this.gameService.size.next(parseInt(event.target.value));

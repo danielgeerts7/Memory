@@ -9,13 +9,12 @@ import { GameService } from '../game.service'
   `
 })
 export class StartgameComponent {
-  size: number;
 
   constructor(private gameService:GameService) {
-    this.size = this.gameService.size;
+
   }
 
-  newGame(size: number) {
+  newGame(size: any) {
     this.gameService.initGame(size);
   }
 }
