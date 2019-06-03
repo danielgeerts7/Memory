@@ -2,8 +2,10 @@
 import { Injectable } from '@angular/core';
 
 import { filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Card } from './board/row/card/card'
+import { el } from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +13,17 @@ import { Card } from './board/row/card/card'
 export class GameService {
 
   cards: any[];
-  size: number;
   getLetter: any;
-
+  char: string;
   firstcard:Card;
   secondcard:Card;
+  points: number = 0;
+
+  isOpen = true;
+  timeout: any;
+
+  symbol = new BehaviorSubject('*');
+  size = new BehaviorSubject(4);
 
   constructor() {}
 
@@ -24,7 +32,7 @@ export class GameService {
   }
 
   getSize() {//: Obverable<number> {
-    return this.size;
+    return this.size.value;
   }
 
   nextLetter(size):any {
@@ -38,19 +46,19 @@ export class GameService {
   	};
   }
 
-  initGame(size:number) {
-    this.size = size;
-    console.log("Init game with " + size);
+  initGame(size:number=this.size.value) {
+    //this.size = size;
+    console.log("Init game with " + this.size.value);
 
     this.initVars();
     this.showScores();
   }
 
   initVars() {
-    this.getLetter = this.nextLetter(this.size);
+    this.getLetter = this.nextLetter(this.size.value);
   }
 
-  showScores(){
+  showScores() {
     // Vul het topscore lijstje op het scherm.
   }
 
@@ -69,29 +77,37 @@ export class GameService {
     return array;
   }
 
-  flipCard(card:Card) {
+  flipCard(card: Card) {
     this.checkDerdeKaart();
     let draaiKaartOm = this.turnCard(card);
-    if (draaiKaartOm == 2) {
+    if (draaiKaartOm === 2) {
       this.checkKaarten();
+      this.toggle();
+      this.checkGameDone();
+
     }
   }
 
-  checkDerdeKaart(){
+  checkDerdeKaart() {
     if (this.firstcard && this.secondcard) {
+      clearInterval(this.timeout);
       this.deactivateCards();
+      this.resetToggle();
+    } else if (this.firstcard && !this.secondcard ) {
+      console.log('this one')
+      this.timeoutCheck();
     }
   }
 
   deactivateCards() {
   	if (this.firstcard) {
   		this.firstcard.className = 'inactive';
-    	this.firstcard.showThis = this.firstcard.achterkant;
+    	this.firstcard.showThis = this.symbol.value;
       this.firstcard = null;
   	}
   	if (this.secondcard) {
   		this.secondcard.className = 'inactive';
-      this.secondcard.showThis = this.secondcard.achterkant;
+      this.secondcard.showThis = this.symbol.value;
     	this.secondcard = null;
   	}
   }
@@ -103,7 +119,9 @@ export class GameService {
       card.showThis = card.karakter;
     } else if (card.className === 'active') {
       card.className = 'inactive';
-      card.showThis = '*';
+      //console.log(this.char);
+      card.showThis = this.symbol.value;
+      //console.log(this.char);
     }
 
     if (!this.firstcard) {
@@ -113,7 +131,6 @@ export class GameService {
       this.secondcard = card;
       count = 2;
     }
-
     return count;
   }
 
@@ -125,11 +142,37 @@ export class GameService {
         this.secondcard.className = 'found';
         this.firstcard = null;
         this.secondcard = null;
+        this.points = this.points + 1;
+        this.resetToggle();
       }
     }
   }
 
   fetchAchterkant() {
-    return '*';
+    console.log("fetch");
+    //console.log('this.char: ' + this.char);
+    //return this.char;
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+
+  resetToggle() {
+    this.isOpen = true;
+  }
+  timeoutCheck() {
+    this.timeout = setTimeout(() => {
+      this.deactivateCards();
+      this.resetToggle();
+    }, 2000);
+  }
+
+  //todo stop mogelijk maken en gemiddelde tijd uitrekeken en punten berekenen
+  checkGameDone() {
+    if (this.points * 2 == this.getSize() * this.getSize()) {
+      console.log('game done');
+      return true;
+    }
   }
 }
