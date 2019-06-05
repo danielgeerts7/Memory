@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     LoginComponent,

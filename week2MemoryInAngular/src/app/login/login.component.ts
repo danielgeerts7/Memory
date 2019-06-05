@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       password: userData.password,
     }
     this.authService.login(u).subscribe(res => {
-      this.router.navigateByUrl('/auth');
+      this.router.navigateByUrl('/auth/memory');
     });
   }
 }

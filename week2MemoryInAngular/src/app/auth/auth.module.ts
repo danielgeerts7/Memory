@@ -6,6 +6,8 @@ import { HttpClientModule }  from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { LoginModule } from '../login/login.module';
 import { MemoryModule } from '../memory/memory.module';
+import { Interceptor } from './Interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,8 +19,13 @@ import { MemoryModule } from '../memory/memory.module';
     FormsModule,
     HttpClientModule,
     LoginModule,
-    MemoryModule
+    MemoryModule,
   ],
-  providers: [ AuthService ]
+  providers: [ AuthService,
+
+    {provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true,
+  }]
 })
 export class AuthModule { }

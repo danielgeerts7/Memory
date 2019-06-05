@@ -37,7 +37,7 @@ export class AuthService {
     localStorage.setItem("EXPIRES_IN", expiresIn)
     this.token = token;
   }
-  private getToken(): string{
+  public getToken(): string{
     if(!this.token){
       this.token = localStorage.getItem("ACCESS_TOKEN");
     }
