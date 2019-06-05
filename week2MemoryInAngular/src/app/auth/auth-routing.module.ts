@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import { MemoryComponent } from '../memory/memory.component';
+import { GuardService as AuthGuard } from './guard.service';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: 'memory',
     component: MemoryComponent,
+    canActivate: [AuthGuard]
     //loadChildren: '../memory/memory.component'
   }
 

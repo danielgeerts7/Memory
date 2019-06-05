@@ -8,6 +8,8 @@ import { LoginModule } from '../login/login.module';
 import { MemoryModule } from '../memory/memory.module';
 import { Interceptor } from './Interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GuardService } from './guard.service';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MemoryModule,
   ],
   providers: [ AuthService,
+    GuardService,
 
     {provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
