@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import { RouteRoutingModule } from './route/route-routing.module'
 
 import { AppComponent } from './app.component';
+import { AuthComponent } from './auth/auth.component';
 import { LoginModule } from './login/login.module';
-import { MemoryModule } from './memory/memory.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthComponent
   ],
     imports: [
     FormsModule,
@@ -20,9 +22,8 @@ import { MemoryModule } from './memory/memory.module';
     RouterModule,
     RouteRoutingModule,
     BrowserModule,
-    MemoryModule,
-    LoginModule,
     BrowserAnimationsModule,
+    LoginModule
   ],
   bootstrap: [ AppComponent ]
 })

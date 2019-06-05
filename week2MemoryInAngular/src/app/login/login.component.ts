@@ -1,6 +1,9 @@
 import { Component, OnInit} from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule, FormBuilder, Validators, FormGroup  } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { UserI } from '../jwt/user';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -8,24 +11,24 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+    loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-    email: [null,Validators.compose([Validators.required, Validators.minLength(5), Validators.email, Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')])],
+    name: [null,Validators.compose([Validators.required, Validators.minLength(5)])],
     password: [null, Validators.compose([Validators.required, Validators.minLength(8)])]
     })
   }
 
   onSubmit(userData) {
-      if(this.loginForm.valid){
-        alert('User form is valid!!');
-      }
-      else {
-        alert('User form is not valid!!');
-      }
+    const u:UserI = {
+      name: userData.name,
+      password: userData.password,
+    }
+    this.authService.login(u).subscribe(res => {
+      this.router.navigateByUrl('/auth');
+    });
   }
-
 }
