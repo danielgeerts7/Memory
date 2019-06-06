@@ -45,10 +45,11 @@ export class AuthService {
     return this.token;
   }
   public isAuthenticated(): boolean {
-    const token = localStorage.getItem('ACCESS_TOKEN');
+    const token = localStorage. getItem("ACCESS_TOKEN");
+    console.log(token);
     // Check whether the token is expired and return
     // true or false
-    if (this.token){
+    if (token){
       return true;
     }
     else{

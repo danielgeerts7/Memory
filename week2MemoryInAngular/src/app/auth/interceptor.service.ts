@@ -31,7 +31,7 @@ export class Interceptor implements HttpInterceptor {
       return next.handle(temp).catch((error, caught) => {
       //intercept the respons error and displace it to the console
       console.log('Error Occurred');
-     console.log(error);
+      console.log(error);
       //return the error to the method that called it
       return Observable.throw(error);
     });
